@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;1,300;1,400&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto',sans-serif;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    /*overflow: hidden;*/
+    margin:0;
+
+}
+
+.container{
+    border: 2px solid black;
+    margin: 30px auto; 
+}
+
+.participants-head {
+    border: 2px solid blue;
+    display: flex;
+    width: 400px;
+    height:50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn{
+    margin-left: 30px;
+}
+
+.participant{
+    width:150px;
+    margin:5px;   
+    border: 2px solid black
+}
+.delete-icon{
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.purchases-head {
+    border: 2px solid blue;
+    display: flex;
+    width: auto;
+    height:auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.purchases-sub-head{
+    display: flex;
+    align-items: flex-start;
+    height: auto;
+    border: 2px solid green;
+}
+
+.concept, .amount, .pWP, .pA {
+    padding: 15px;
+    margin: 10px;
+    border: 2px solid black;
+}
+
+
+
+.pA {
+    margin:5px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: auto;
+    border: 2px solid blue;
+}
+
+.pA-title{
+    border: 2px solid green;
+    margin:5px;
+    text-align: center;
+}
+
+.pA-participants-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly ;
+    border: 2px solid violet;
+    height: calc(auto + 15px);
+    width: calc(auto + 15px);
+}
+.pA-participants-container div{
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    border: 2px solid orange;
+    padding:auto 0px;
+    transform: rotate(180deg);
+}
