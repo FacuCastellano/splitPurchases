@@ -17,15 +17,20 @@ body {
 }
 
 .container{
-    border: 2px solid black;
+    border: 2px solid #000000;
     margin: 30px auto; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.participants-head {
+.head {
     border: 2px solid blue;
+    width: auto;
+    height:auto;
+    padding: 5px 60px;
     display: flex;
-    width: 400px;
-    height:50px;
     justify-content: center;
     align-items: center;
 }
@@ -45,79 +50,123 @@ body {
     cursor: pointer;
 }
 
-.purchases-head {
-    border: 1px solid grey;
-    display: flex;
-    width: auto;
-    height:auto;
-    justify-content: center;
-    align-items: center;
-}
+/*Urchase */
 
-.purchases-sub-head{
+.purchase-title{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr  3fr ;
-    grid-template-rows: auto;
+    grid-template-rows: 1fr 1fr;
     height: auto;
-    border: 2px solid green;
+
 }
 
-.concept, .amount, .pWP, .pA {
-    padding: 15px;
-    margin: 10px;
-    border: 2px solid black;
+.concept{
+    grid-column: 1 / 2;  
+    grid-row: 1 / 3;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border:2px solid red;
+}
+.amount{
+    grid-column: 2 / 3;  
+    grid-row: 1 / 3; 
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    border:2px solid red;
+    font-size: 35px;
+}
+
+.pWP {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
+    border:2px solid red;
+    grid-column: 3 / 4;  
+    grid-row: 1 / 3; 
+}
+.pAT{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
+    border:2px solid red;
+    grid-column: 4 / 7;  
+    grid-row: 1 / 2; 
 }
 
 
-
-.purchase-afect {
-    margin:5px;
+.purchase-afect-participant {
+    border:2px solid red;
+    grid-column: 4 / 7;  
+    grid-row: 2 / 3; 
+    margin-bottom:10px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-evenly;
     height: auto;
     width: auto;
-    border: 2px solid red;
-}
-.purchase-afect.color {
-    align-items: center;
-}
 
-.purchase-afect div{
+}
+.purchase-afect-participant div{
     writing-mode: vertical-rl;
     text-orientation: mixed;
-    border: 1px solid black;
-    padding:auto 0px;
     transform: rotate(180deg);
 }
-
-
-.pA-title{
-    border: 2px solid green;
-    margin:5px;
-    text-align: center;
-}
-
-.pA-participants-container{
-    justify-self: center;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly ;
-    border: 2px solid violet;
-    height: calc(auto + 15px);
-    width: auto;
-}
-
-.purchase{
+.purchase {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr  3fr ;
-    grid-template-rows: auto;
-}
-.square{
-    width: 20px;
-    height: 25px;
+    grid-template-rows: 1fr;
+    width: 100%;
+    height: auto;
+    
 
+}
+
+.purchase-concept{
+    grid-column: 1 / 2;  
+    grid-row: 1 / 2; 
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
+    border:2px solid pink;
+}
+
+.purchase-amount{
+    grid-column: 2 / 3;  
+    grid-row: 1 / 2; 
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
+    border:2px solid pink;
+    
+}
+.purchase-pWP{
+    grid-column: 3 / 4;  
+    grid-row: 1 / 2;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
+    border:2px solid pink;
+}
+.purchase-afect-color{
+    grid-column: 4 / 7;  
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: space-evenly;
+    border:2px solid red;
+}
+
+
+.square{
+    width: 22px;
+    height: 25px; 
 }
 .square.yes{
     background-color: green
@@ -126,20 +175,7 @@ body {
     background-color: red
 }
 
-.personal-balance-head{
-    width: 100%;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.personal-balance{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
+/*Personal Balance */
 
 .personal-balance-title{
     display: grid;
@@ -153,8 +189,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 25px;
+    font-size: 20px;
 }
+
 .personal-balance-row{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -172,6 +209,7 @@ body {
     align-items: center;
     border: 2px solid red;
 }
+/*Several Pay */
 
 .severance-pay-head{
     display:flex;
@@ -191,7 +229,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 25px;
+    font-size: 20px;
 }
 .severance-pay-row{
     display: grid;
