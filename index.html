@@ -14,30 +14,25 @@
     </div>
     
     
-    <div class="container">
+    <div class="container" id="partContainer">
         <div class="head">
             <h2> Participants</h2>
-            <button class="btn btn-add-participant">Add <i class="fa fa-users"></i>+</button>
+        </div>
+        <div class="input-participant">
+            <label>Name:</label><br>
+            <input type="text" id="inputPart"><br>
+            <button class="btn" id="btn-inputPart">Add <i class="fa fa-users"></i>+</button>
         </div>
 
-        <div class="participant"><span>Facu</span><i class="fas fa-times delete-icon"></i></div>
-        <div class="participant"><span>Tose</span><i class="fas fa-times delete-icon"></i></div>
-        <div class="participant"><span>Maer</span><i class="fas fa-times delete-icon"></i></div>
-        <div class="participant"><span>Sergey</span><i class="fas fa-times delete-icon"></i></div>
-        <div class="participant"><span>Nacho</span><i class="fas fa-times delete-icon"></i></div>
-        <div class="participant"><span>Julian</span><i class="fas fa-times delete-icon"></i></div>
-        <div class="participant"><span>Gon</span><i class="fas fa-times delete-icon"></i></div>
-        <div class="participant"><span>Sergio</span><i class="fas fa-times delete-icon"></i></div>
-        <div class="participant"><span>Mono</span><i class="fas fa-times delete-icon"></i></div>
-        <div class="participant"><span>Agus Miguel</span><i class="fas fa-times delete-icon"></i></div>
-
- 
+        <!-- esto se llena desde JS segun los nombres ingresados-->
+       
+        
     </div>
 
-    <div class="container">
+    <div class="container" id="purchase-container">
         <div class="head">
             <h2> Purchase </h2>
-            <button class="btn btn-add-purchase">Add <i class="fa fa-coins"></i>+</button>
+            <button class="btn" id="btn-add-purchase">Add <i class="fa fa-coins"></i>+</button>
         </div>
         <div class="purchase-title">
 
@@ -50,41 +45,32 @@
 
             <div class="pWP">Person Who Pay</div>
             <div class="pAT">People Afected by Purchases</div>
-            <div class="purchase-afect-participant ">
+            <div class="purchase-afect-participant"  id="pAP">
                 
-                <div>Facu</div>
-                <div>Tose</div>
-                <div>Maer</div>
-                <div>Sergey</div>
-                <div>Nacho</div>
-                <div>Julian</div>
-                <div>Gon</div>
-                <div>Sergio</div>
-                <div>Mono</div>
-                <div>Agus Miguel</div> 
+                <!-- esto se llena desde JS segun los nombres ingresados-->
             
             </div>
         </div>
         
+        <!--Ahora se crea el gasto para agregar los input  -->
 
+        <div class="purchase purchase-main">
+            <div class="purchase-concept"><input type="text" id="inpPurc-concept"></div>
+            <div class="purchase-amount"><input type="text" id="inpPurc-amount"></div>
+            <div class="purchase-pWP">
+                <select id="pWPoptions">
+                    <option value="">Options</option>
+                    <!-- Estas opciones se crean con la funcion addParticipant desde JS -->
+                </select>            
+            </div>
 
-        <div class="purchase">
-            <div class="purchase-concept">Carne</div>
-            <div class="purchase-amount">4532</div>
-            <div class="purchase-pWP">Facundo</div>
-            <div class="purchase-afect-color">
-                <div class="square yes"></div>
-                <div class="square yes"></div>
-                <div class="square no"></div>
-                <div class="square yes"></div>
-                <div class="square no"></div>
-                <div class="square no"></div>
-                <div class="square yes"></div>
-                <div class="square yes"></div>
-                <div class="square no"></div>
-                <div class="square yes"></div> 
+            <div class="purchase-afect-color" id="purchase-afect-color-input">
+                <!-- Aca se crean los div de los tick en blanco del input de los purchases, los que luego segun se tickeen o no se agregaran gastos o no. -->  
             </div>
         </div>
+        
+        <!--  Aca se agregan los gastos desde AddPurchase() en JS -->
+
     
     </div>
 
