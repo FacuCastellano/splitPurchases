@@ -223,14 +223,14 @@ body {
     font-size: 20px;
 }
 
-.personal-balance-row{
+.personal-balance-participant{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     width: 100%;
     border: 2px solid violet;
 }
 
-.personal-balance-row div{
+.personal-balance-participant div{
     justify-self: center;
     align-self: center;
     margin: 15px;

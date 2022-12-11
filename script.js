@@ -1,6 +1,7 @@
 const inputPart =  document.getElementById('inputPart')
 const btnPart =document.getElementById('btn-inputPart')
 const partContainer = document.getElementById('partContainer')
+const persBalanceContainer = document.getElementById('personal-balance-container')
 const btnPurch = document.getElementById('btn-add-purchase')
 const pAP = document.getElementById('pAP') // este es el contenedor de los nombres que salen arriba para distribuir los gastos (arriba de los cuadros de colores)
 const pWPoptions = document.getElementById('pWPoptions')
@@ -88,7 +89,7 @@ function deleteParticipant(part){
     deleteParcipantPurchases(partIdNumber)  // borro los gastos del participante eliminado
     deleteParticipantPeopleAfectedByPurchases(partIdNumber) //borro la columna de casilleros del participante eliminado
     delete participants[part.innerText] //aca elimino el participante del objeto participants.
-    upGradePersonalBalance()
+    GeneratePersonalBalance()
     
 }
 
@@ -122,6 +123,7 @@ function addPurchase(){
     container.appendChild(div)
     agregarToggle()// le agrego el toggle("activate") a todos los nuevos clicks
     setInputsToZero()
+    GeneratePersonalBalance()
     g++
 }
 
@@ -149,8 +151,11 @@ function ticksClicked(){
 
 //agregar toggle para ticker/destickear las personas afectadas por los gastos
 function agregarToggle(){
-   const elements = Array.from(document.getElementsByClassName(`particularTick-g${g}`)) //tuve que agrupar los ticks segun el gasto, pq sino el eventlistner se ejecutaba sobre todos los elementos mas de una vez.. y cuando se "agregaba" a un tick que ya tenia el eventlistener, este se salia.. es decir funcionaba como un toggle.
-   elements.forEach(element => element.addEventListener('click', () => element.classList.toggle('activate')) )
+    const elements = Array.from(document.getElementsByClassName(`particularTick-g${g}`)) //tuve que agrupar los ticks segun el gasto, pq sino el eventlistner se ejecutaba sobre todos los elementos mas de una vez.. y cuando se "agregaba" a un tick que ya tenia el eventlistener, este se salia.. es decir funcionaba como un toggle.
+    elements.forEach(element => element.addEventListener('click', () => {
+        element.classList.toggle('activate')
+        GeneratePersonalBalance() // lo pongo aca para que se actualice solo cuando voy tickeando/destickeando
+    }))
 }
 function setInputsToZero(){
     document.getElementById('inpPurc-concept').value = ''
@@ -176,6 +181,8 @@ function deleteParticipantPeopleAfectedByPurchases(partIdNumber){
 }
 
 function upGradePersonalBalance(){
+    //Falta setear a 0, todos los MustPAy y los payedDOne pq esto los cuenta a todos de 0.. y sino se van a ir sumando y sumando con cada actualizacion.
+    personalBalaceToZero()
     const purchases = Array.from(document.getElementsByClassName('purchase')).filter(element=> !(element.classList.contains('purchase-main'))) //creo un array de los elementos purchase, pero saco el elemento purchase-main (q es el de los input.)
     const participantsKey = Object.keys(participants)
     
@@ -185,7 +192,7 @@ function upGradePersonalBalance(){
         const pWP = purchase.childNodes[5].innerText //aca obtengo el nombre de quien pago.. que es la llave que uso en el objeto participants, para sumarle el gasto.
         const ticks = Array.from(purchase.childNodes[7].childNodes)
         
-        participants[pWP]['personalBalance']['payedDone'] += amount
+        participants[pWP]['personalBalance']['payedDone'] += amount //esto va sumando los gastos.. 
         
         let purchaseConsumer = 0 //estos dos for lo que hacen es calcular el valor de "mustPay" de cada participante.
         for(let i=0;i<ticks.length;i++){ 
@@ -205,11 +212,52 @@ function upGradePersonalBalance(){
         }
         
     })
-    console.log(participants)
+    personalBalanceBalance()  //Aca calculo el "balance" de cada uno, ya despues de solo falta presentar los resultados en pantalla.
 }
 
+// creo una funcion para setear a 0 todas las propiedades del personalBalace
+function personalBalaceToZero(){
+    const participantskeys = Object.keys(participants)
+    for(let i = 0; i < participantskeys.length; i++){
+        participants[participantskeys[i]]['personalBalance']['mustPay'] = 0
+        participants[participantskeys[i]]['personalBalance']['payedDone'] = 0
+    }
+}
+function personalBalanceBalance(){ // calculado el "payedDone" y el "MustPay", calculo el balance personal. .
+    const participantskeys = Object.keys(participants)
+    for(let i = 0; i < participantskeys.length; i++){
+        participants[participantskeys[i]]['personalBalance']['Balance']  = participants[participantskeys[i]]['personalBalance']['payedDone'] - participants[participantskeys[i]]['personalBalance']['mustPay']
+    }
+}
 
-//creo una funcion que a partir del IDNumber me devuelva el name
-/*function getNameParticipant(n){
-    for 
-}*/
+//aca creo la funcion general del personal balances, la que va a ser llamada para actualizar todo, tanto el calculo como los casilleros. 
+function GeneratePersonalBalance(){
+    persBalanceContainer.innerHTML = `
+        <div class="head">
+            <h2> Personal Balance </h2>
+        </div>
+        <div class="personal-balance-title">
+            <div>Participant</div>
+            <div>Must Pay</div>
+            <div>Payed Done</div>
+            <div>Balance</div>
+        </div>
+    `
+    upGradePersonalBalance()
+    const participantskeys = Object.keys(participants)
+    for(let i = 0; i < participantskeys.length; i++){
+        const name= participants[participantskeys[i]]['name']  
+        const mustPay = Math.round(participants[participantskeys[i]]['personalBalance']['mustPay'],2)
+        const payDone = Math.round(participants[participantskeys[i]]['personalBalance']['payedDone'],2)
+        const balance =  Math.round(participants[participantskeys[i]]['personalBalance']['Balance'],2)
+        const div = document.createElement('div')
+        div.classList.add('personal-balance-participant')
+        div.innerHTML = `
+            <div>${name}</div>
+            <div>${mustPay}</div>
+            <div>${payDone}</div>
+            <div>${ balance > 0 ? `Saldo a favor $${balance}`: balance < 0 ? `Adeuda $${-balance}` : 'Saldado'  }</div>
+        `
+        persBalanceContainer.appendChild(div)
+    }
+}
