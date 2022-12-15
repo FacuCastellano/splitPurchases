@@ -185,8 +185,27 @@ body {
     display: flex;
     justify-content: space-evenly;
     border:2px solid red;
+    position: relative;
 }
-
+.btn-close{
+    position: absolute;
+    right:0;
+    width:30px;
+    height: 30px;
+    background-color: rgb(175, 123, 185);
+    font-size: 20px;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.5s ease;
+    z-index: -1; /*con esto lo mando al fondo y lo hago inclickiable (quizas visible pero no clickiable)*/
+    visibility: hidden;
+}
+.btn-close.visible{
+    transform: translateX(50px);
+    visibility: visible;
+    z-index: 1; /*con esto lo traigo adelante y lo hago clickiable.*/
+}
 
 .square{
     display: flex;
