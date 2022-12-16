@@ -31,12 +31,12 @@ btnPurch.addEventListener('click',addPurchase)
 function addParticipant(){
     inputPart.value = inputPart.value.trim() // le saco los espacios en blanco atras y adelante.
     
-    if (inputPart.value !== ''){
+    if ((inputPart.value !== '')&&(Object.keys(participants).includes(inputPart.value) !== true )){  // la 2da condicion es para que no se puedan crear particiapantes duplicados.
         const div = document.createElement('div')
         div.id = `participant-p${p}`
         div.classList.add('participant')
-        div.innerHTML = `<span>${inputPart.value}</span><i class="fas fa-times delete-icon"></i>`
-        const deleteBtn = div.children['1'] //.children devuelve un objeto con los hijos de elemento al q se aplica.. las claves son numeros(segun el orden correlativo de cada hijo en el HTML) y el valor el propio hijo.
+        div.innerHTML = `<i class="fas fa-times delete-icon"></i><span>${inputPart.value}</span>`
+        const deleteBtn = div.children['0'] //.children devuelve un objeto con los hijos de elemento al q se aplica.. las claves son numeros(segun el orden correlativo de cada hijo en el HTML) y el valor el propio hijo.
         deleteBtn.addEventListener('click',(e)=>{   //aca agrego la funcion almacenada en el btn-X de cada participante para borrarlo.
             deleteParticipant(e.target.parentElement) 
         }) 
@@ -59,7 +59,8 @@ function addParticipant(){
         p ++ //aumneto el valor de para que el prox participante tenga otro valor.
         inputPart.value = ''
     }else {
-        console.log('no se puede cargar una string vacio.')
+        console.log('no se puede cargar una string vacio, ni un participando duplicado')
+        inputPart.value = ''
     }
 }
 //aca creo la funcion que me tiene q crear los casilleros en blanco en la primera linea para despues poder tickiarlos y assignar los gastos.
@@ -138,7 +139,7 @@ function addPurchase(){
         <div class="purchase-concept" id="pc-g${g}">${concept}</div>
         <div class="purchase-amount" id="pa-g${g}">${amount}</div>
         <div class="purchase-pWP" id="pWP-p${pwdIDNumber}-g${g}">${option}</div>
-        <div class="purchase-afect-color" id="pAC-g${g}">${ticks}<div class="btn-close" data-purchaseid="purchase-g${g}" >X</div></div>
+        <div class="purchase-afect-color" id="pAC-g${g}">${ticks}<div class="btn-close" data-purchaseid="purchase-g${g}"><i class="fas fa-times delete-icon"></i></div></div>
         
     `
     container.appendChild(div)
@@ -146,14 +147,26 @@ function addPurchase(){
     const btnClose = div.lastElementChild.lastElementChild  //selecciono el div con la clase btn-closse (que va a oficiar de boton.)
     btnClose.id = `purchase-g${g}`
     div.addEventListener('mouseover',()=>{btnClose.classList.add('visible')}) //le agrego la clase visible cuando el mouse esta en el container
-    div.addEventListener('mouseout',()=>{setTimeout(() => { btnClose.classList.remove('visible')}, 2250);}) //le saco la clase visible cuando el mouse esta en el container
+    div.addEventListener('mouseout',()=>{setTimeout(() => { btnClose.classList.remove('visible')}, 4500);}) //le saco la clase visible cuando el mouse esta en el container
     
-    btnClose.addEventListener('click',(event)=>{
+    /*
+    btnClose.addEventListener('click',(event)=>{  
         const purchaseToDelete = event.target.dataset.purchaseid //cuando lo creo le creo un atributo "data-purchaseid" con la info del ID del purchase general. (Cuidado: el nombre xxxxx en data-xxxxx tiene que se todo minuscula.)
         document.getElementById(purchaseToDelete).remove()
-        GeneratePersonalBalance() //actualizo los balances personales
-        severancePay() // actualizo las transferecinas
+        GeneratePersonalBalance() //actualizo los balances personales        
+        severancePay() // actualizo las transferecinas 
     })
+    */
+    
+    btnClose.firstChild.addEventListener('click',(event)=>{  
+        const purchaseToDelete = event.target.parentElement.dataset.purchaseid //cuando lo creo le creo un atributo "data-purchaseid" con la info del ID del purchase general. (Cuidado: el nombre xxxxx en data-xxxxx tiene que se todo minuscula.)
+        document.getElementById(purchaseToDelete).remove()
+        GeneratePersonalBalance() //actualizo los balances personales        
+        severancePay() // actualizo las transferecinas 
+        
+    })
+
+
 
     setInputsToZero()
     GeneratePersonalBalance()
@@ -404,7 +417,7 @@ function createTransfers(array){
         const creditor = array[i][1]
         const amount = array[i][2].toFixed(2)
         div = document.createElement('div')
-        div.classList.add('severance-pay-title')
+        div.classList.add('severance-pay-row')
         div.innerHTML = `
             <div>${debtor}</div>
             <div>${amount}</div>
