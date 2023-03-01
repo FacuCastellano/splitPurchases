@@ -1,5 +1,8 @@
 const inputPart =  document.getElementById('inputPart')
 const btnPart =document.getElementById('btn-inputPart')
+const btnEdit = document.getElementById('btnEdit')
+const inputEditName = document.getElementById('inputEditName')
+
 const partContainer = document.getElementById('partContainer')
 const persBalanceContainer = document.getElementById('personal-balance-container')
 const servPayContainer = document.getElementById('severance-pay-container')
@@ -22,6 +25,11 @@ btnPart.addEventListener('click', addParticipant)// tmb disparo la funcion si to
 
 btnPurch.addEventListener('click',addPurchase)
 
+btnEdit.addEventListener('click',()=>{
+    partContainer.classList.toggle('active') 
+    inputEditName.classList.toggle('active') 
+    console.log("click")
+})
 
 ///////////// Aca voy creando todas las funciones que necesito/////////////////
 
