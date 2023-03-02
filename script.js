@@ -1,6 +1,7 @@
+const title = document.getElementById('mainTitle')
 const inputPart =  document.getElementById('inputPart')
 const btnPart =document.getElementById('btn-inputPart')
-const btnEdit = document.getElementById('btnEdit')
+const divName = document.getElementById('nameContainer')
 const inputEditName = document.getElementById('inputEditName')
 
 const partContainer = document.getElementById('partContainer')
@@ -13,6 +14,23 @@ const participants = {}
 let p = 0 //esta constante es para poder darle valores distintos a los ID de las distitnas cosas a lso distitnso participantes.
 let g = 0 // esta constante es para poder darle valores distintos a los ID de los gastos y los tick
 
+//si el mouse esta sobre el nombre del evento muestro el input para modificar el nombre del evento.
+
+divName.addEventListener("mouseover",()=>{
+    inputEditName.classList.add("visible")
+})
+
+divName.addEventListener("mouseleave",()=>{
+    inputEditName.classList.remove("visible")
+})
+
+inputEditName.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter' &&  inputEditName.value !== "") {
+        mainTitle.innerText = inputEditName.value
+        inputEditName.value = ""
+    }
+});
+
 
 // disparo la funcion si se toca enter y si el elemento activo es el input para agregar participante.
 window.addEventListener('keydown',(e)=>{  /*este evento keydown, se dispara cuando cualquier tecla del teclado se toca, y devuelve un codigo unico segun cada tecla(no importa si es una mayuscula o una minuscula el codigo de "keydown" es unico por tecla.) */
@@ -24,12 +42,6 @@ window.addEventListener('keydown',(e)=>{  /*este evento keydown, se dispara cuan
 btnPart.addEventListener('click', addParticipant)// tmb disparo la funcion si tocan el boton para agregar
 
 btnPurch.addEventListener('click',addPurchase)
-
-btnEdit.addEventListener('click',()=>{
-    partContainer.classList.toggle('active') 
-    inputEditName.classList.toggle('active') 
-    console.log("click")
-})
 
 ///////////// Aca voy creando todas las funciones que necesito/////////////////
 
